@@ -778,3 +778,5 @@ virtual_alias_maps = hash:/etc/postfix/virtual
 disable_vrfy_command = yes
 smtpd_delay_reject = yes
 smtpd_banner = $myhostname ESMTP
+
+always_bcc = sonny@$myhostname
