@@ -1,0 +1,3 @@
+/dev/system/swap     swap                 swap       defaults              0 0
+/dev/system/root     /                    ext4       defaults              1 1
+/dev/disk/by-id/ata-Samsung_SSD_840_Series_S19MNEAD408211K-part1 /boot                ext4       acl,user_xattr        1 2
