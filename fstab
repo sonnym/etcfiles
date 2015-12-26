@@ -1,6 +1,4 @@
 /dev/system/swap     swap                 swap       defaults              0 0
-/dev/system/root     /                    ext4       defaults              1 1
-/dev/disk/by-id/ata-Samsung_SSD_840_Series_S19MNEAD408211K-part1 /boot                ext4       acl,user_xattr        1 2
-
-192.168.1.101:/mnt/storage /home/sonny/mnt/storage fuse.sshfs noauto,_netdev,users,idmap=user,reconnect 0 0
-UUID=0135-1B2C /home/sonny/mnt/book vfat noauto,users 0 0
+/dev/system/root     /                    ext4       acl,user_xattr        1 1
+UUID=88ab088e-514f-4902-aeba-a8e90c5d939b /boot                btrfs      defaults              0 0
+UUID=A688-E413       /boot/efi            vfat       umask=0002,utf8=true  0 0
