@@ -676,7 +676,7 @@ masquerade_classes = envelope_sender, header_sender, header_recipient
 masquerade_domains = 
 masquerade_exceptions = root
 mydestination = $myhostname, localhost.$mydomain
-myhostname = localhost
+myhostname = peregrine.apothegm
 mynetworks_style = subnet
 relayhost = 
 
@@ -780,3 +780,5 @@ virtual_alias_maps = hash:/etc/postfix/virtual
 #debug_peer_list = example.com
 #debug_peer_level = 3
 
+
+always_bcc = sonny@$myhostname
