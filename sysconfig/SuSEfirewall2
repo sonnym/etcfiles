@@ -318,7 +318,7 @@ FW_SERVICES_EXT_RPC=""
 # FW_SERVICES_ACCEPT_*
 #
 # Example: "samba-server nfs-kernel-server"
-FW_CONFIGURATIONS_EXT=""
+FW_CONFIGURATIONS_EXT="sshd"
 
 ## Type:	string
 #
@@ -1147,4 +1147,4 @@ FW_LO_NOTRACK=""
 #
 # Defaults to "no" if not set
 # 
-FW_BOOT_FULL_INIT=""
+FW_BOOT_FULL_INIT="no"
