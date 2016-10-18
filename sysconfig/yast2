@@ -97,3 +97,9 @@ PKGMGR_REEVALUATE_RECOMMENDED="no"
 ## Default: "no"
 # Enable use of snapper for YaST.
 USE_SNAPPER="no"
+
+## Type: list(yes,no)
+## Default: "yes"
+#
+# Install also the weak, recommended, dependencies.
+PKGMGR_RECOMMENDED="yes"
