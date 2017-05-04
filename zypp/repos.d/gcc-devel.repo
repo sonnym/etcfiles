@@ -1,0 +1,5 @@
+[gcc-devel]
+enabled=1
+autorefresh=0
+baseurl=http://download.opensuse.org/repositories/devel:/gcc/SLE-12
+type=rpm-md

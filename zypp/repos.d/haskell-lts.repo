@@ -1,0 +1,5 @@
+[haskell-lts]
+enabled=1
+autorefresh=0
+baseurl=http://download.opensuse.org/repositories/devel:/languages:/haskell:/lts:/6/openSUSE_Leap_42.2
+type=rpm-md
