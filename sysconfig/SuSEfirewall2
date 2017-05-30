@@ -114,22 +114,26 @@ FW_DEV_DMZ=""
 # Should routing between the internet, dmz and internal network be
 # activated?
 #
-# Set this to "yes" if you either want to masquerade internal
-# machines or allow access to the dmz (or internal machines, but
-# this is not a good idea).
-# 
-# This option overrides IP_FORWARD from /etc/sysconfig/sysctl and
-# net.ipv4.ip_forward settings in /etc/sysctl.conf
-# Note: IPv4 only. The IPv6 forwarding sysctl has to be turned on
-# manually.
+# Set this to "IPv4" and/or "IPv6" if you either want to masquerade internal
+# machines or allow access to the dmz (or internal machines, but this is not a
+# good idea). For backward compatiblity a value of "yes" is treated like
+# "IPv4".
 #
-# Setting this option one alone doesn't do anything. Either activate
+# You should turn on IPv4 and/or IPv6 forwarding via 'yast2 network' or
+# directly via 'sysctl' for this to work.
+#
+# Otherwise IPv4/IPv6 forwarding will be enabled temporarily, if necessary,
+# for the lifetime of the firewall and disabled again during firewall stop.
+#
+# Enabling this option alone doesn't do anything. Either activate
 # masquerading with FW_MASQUERADE below if you want to masquerade
 # your internal network to the internet, or configure FW_FORWARD to
 # define what is allowed to be forwarded. You also need to define
 # internal or dmz interfaces in FW_DEV_INT or FW_DEV_DMZ.
 #
 # defaults to "no" if not set
+#
+# Examples: "IPv4,IPv6", "IPv4", "IPv6", "no"
 #
 FW_ROUTE="no"
 
@@ -507,7 +511,9 @@ FW_SERVICES_ACCEPT_RELATED_INT=""
 # Format: space separated list of network[,protocol[,port]]
 # in case of icmp, port means the icmp type
 #
-# Example: "172.20.1.1 172.20.0.0/16 1.1.1.1,icmp 2.2.2.2,tcp,22"
+# if network has IPv6 address format then an ip6tables rule will be assumed.
+#
+# Example: "172.20.1.1 172.20.0.0/16 1.1.1.1,icmp 2.2.2.2,tcp,22 2620:113:80c0:8080:10:160:68:136/64,rsync"
 #
 FW_TRUSTED_NETS=""
 
@@ -554,7 +560,7 @@ FW_FORWARD=""
 
 ## Type:	string
 #
-# same as FW_FORWARD but packages are rejected instead of accepted
+# same as FW_FORWARD but packets are rejected instead of accepted
 #
 # Requires: FW_ROUTE
 #
@@ -562,7 +568,7 @@ FW_FORWARD_REJECT=""
 
 ## Type:	string
 #
-# same as FW_FORWARD but packages are dropped instead of accepted
+# same as FW_FORWARD but packets are dropped instead of accepted
 #
 # Requires: FW_ROUTE
 #
@@ -633,7 +639,7 @@ FW_REDIRECT=""
 #
 # Which kind of packets should be logged?
 #
-# When set to "yes", packages that got dropped and are considered
+# When set to "yes", packets that got dropped and are considered
 # 'critical' will be logged. Such packets include for example
 # spoofed packets, tcp connection requests and certain icmp types.
 #
@@ -645,7 +651,7 @@ FW_LOG_DROP_CRIT="yes"
 #
 # whether all dropped packets should be logged
 #
-# Note: for broadcasts to be logged you also need to set
+# Note: for broadcasts or multicasts to be logged you also need to set
 # FW_IGNORE_FW_BROADCAST_* to 'no'
 #
 # defaults to "no" if not set
@@ -654,7 +660,7 @@ FW_LOG_DROP_ALL="no"
 
 ## Type:	yesno
 #
-# When set to "yes", packages that got accepted and are considered
+# When set to "yes", packets that got accepted and are considered
 # 'critical' will be logged. Such packets include for example tcp
 # connection requests, rpc connection requests and forwarded pakets.
 #
@@ -685,7 +691,7 @@ FW_LOG_ACCEPT_ALL="no"
 #
 # Set to 'no' to disable the rate limit. Setting FW_LOG_ACCEPT_ALL
 # to 'yes' disables this option as well.
-# 
+#
 # Format: a digit and suffix /second, /minute, /hour or /day
 FW_LOG_LIMIT=""
 
@@ -706,11 +712,11 @@ FW_LOG=""
 #
 # Do you want to enable additional kernel TCP/IP security features?
 # If set to yes, some obscure kernel options are set.
-# (icmp_ignore_bogus_error_responses, icmp_echoreply_rate,
-#  icmp_destunreach_rate, icmp_paramprob_rate, icmp_timeexeed_rate,
-#  ip_local_port_range, log_martians, rp_filter, routing flush,
-#  bootp_relay, proxy_arp, secure_redirects, accept_source_route
-#  icmp_echo_ignore_broadcasts, ipfrag_time)
+# (log_martians, rp_filter, routing flush, accept_source_route)
+#
+# If you have configured one of these settings in /etc/sysctl.conf then
+# SuSEfirewall2 won't apply any different value to allow you to override some
+# of these settings to your liking.
 #
 # Tip: Set this to "no" until you have verified that you have got a
 # configuration which works for you. Then set this to "yes" and keep it
@@ -784,7 +790,7 @@ FW_ALLOW_FW_SOURCEQUENCH=""
 # If you want to drop broadcasts however ignore the annoying log entries, set
 # FW_IGNORE_FW_BROADCAST_* to yes.
 #
-# Note that if you allow specifc ports here it just means that broadcast
+# Note that if you allow specific ports here it just means that broadcast
 # packets for that port are not dropped. You still need to set
 # FW_SERVICES_*_UDP to actually allow regular unicast packets to
 # reach the applications.
@@ -820,6 +826,8 @@ FW_ALLOW_FW_BROADCAST_DMZ="no"
 # Suppress logging of dropped broadcast packets. Useful if you don't allow
 # broadcasts on a LAN interface.
 #
+# This affects both broadcast and multicast packets for both IPv4 and IPv6
+#
 # This setting only affects packets that are not allowed according
 # to FW_ALLOW_FW_BROADCAST_*
 #
@@ -832,17 +840,19 @@ FW_ALLOW_FW_BROADCAST_DMZ="no"
 #           - "no" log all dropped broadcast packets
 #
 #
-# defaults to "no" if not set
+# defaults to "yes"
 FW_IGNORE_FW_BROADCAST_EXT="yes"
 
 ## Type:	string
 #
 # see comments for FW_IGNORE_FW_BROADCAST_EXT
+# defaults to "no"
 FW_IGNORE_FW_BROADCAST_INT="no"
 
 ## Type:	string
 #
 # see comments for FW_IGNORE_FW_BROADCAST_EXT
+# defaults to "no"
 FW_IGNORE_FW_BROADCAST_DMZ="no"
 
 ## Type:	list(yes,no,int,ext,dmz,)
@@ -868,7 +878,7 @@ FW_ALLOW_CLASS_ROUTING=""
 
 ## Type:	string
 #
-# Do you want to load customary rules from a file?
+# Do you want to load custom rules from a file?
 #
 # This is really an expert option. NO HELP WILL BE GIVEN FOR THIS!
 # READ THE EXAMPLE CUSTOMARY FILE AT /etc/sysconfig/scripts/SuSEfirewall2-custom
@@ -944,9 +954,11 @@ FW_HTB_TUNE_DEV=""
 #
 # What to do with IPv6 Packets?
 #
-# On older kernels ip6tables was not stateful so it's not possible to implement
-# the same features as for IPv4 on such machines. For these there are three
-# choices:
+# On older kernels (before 2.6.20) ip6tables was not stateful so it's not
+# possible to implement the same features as for IPv4 on such machines.
+# If the CONFIG_NF_CONNTRACK_IPV6 kernel module is existing then leave this
+# empty.
+# For these there are three choices:
 # 
 # - no: do not set any IPv6 rules at all. Your Host will allow any IPv6
 #   traffic unless you setup your own rules.
@@ -1068,7 +1080,7 @@ FW_USE_IPTABLES_BATCH=""
 #
 # See also FW_SERVICES_ACCEPT_RELATED_EXT
 #
-FW_LOAD_MODULES="nf_conntrack_netbios_ns"
+FW_LOAD_MODULES=""
 
 ## Type:	string
 ## Default:	
@@ -1134,7 +1146,8 @@ FW_RUNTIME_OVERRIDE=""
 # certain firewall setups that need to e.g. redirect outgoing
 # packets via custom rules on the local machine.
 #
-# Defaults to "yes" if not set
+# Defaults to "no" if not set, because this can cause unexpected behaviour
+# (see bnc#916771)
 #
 FW_LO_NOTRACK=""
 

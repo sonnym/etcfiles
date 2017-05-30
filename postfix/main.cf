@@ -632,7 +632,7 @@ debugger_command =
 #	>$config_directory/$process_name.$process_id.log & sleep 5
 #
 # Another possibility is to run gdb under a detached screen session.
-# To attach to the screen sesssion, su root and run "screen -r
+# To attach to the screen session, su root and run "screen -r
 # <id_string>" where <id_string> uniquely matches one of the detached
 # sessions (from "screen -list").
 #
@@ -683,6 +683,19 @@ sample_directory = /usr/share/doc/packages/postfix-doc/samples
 #
 readme_directory = /usr/share/doc/packages/postfix-doc/README_FILES
 
+############################################################
+#
+# before changing values manually consider editing
+#  /etc/sysconfig/postfix
+# and run
+#  config.postfix
+#
+# if you miss a feature of config.postfix then just send a
+# mail to chris@computersalat.de
+# patches for new feature(s) are also welcome :)
+#
+############################################################
+
 biff = no
 content_filter = 
 delay_warning_time = 1h
@@ -732,8 +745,10 @@ smtp_sasl_auth_enable = no
 smtp_sasl_security_options = 
 smtp_sasl_password_maps = 
 smtpd_sasl_auth_enable = no
-#smtpd_sasl_path = private/auth
-#smtpd_sasl_type = dovecot
+# cyrus   : smtpd_sasl_type = cyrus,   smtpd_sasl_path = smtpd
+# dovecot : smtpd_sasl_type = dovecot, smtpd_sasl_path = private/auth
+smtpd_sasl_path =
+smtpd_sasl_type =
 ############################################################
 # TLS stuff
 ############################################################
@@ -748,6 +763,7 @@ smtp_tls_CAfile =
 smtp_tls_CApath = 
 smtp_tls_cert_file = 
 smtp_tls_key_file = 
+#smtp_tls_policy_maps = hash:/etc/postfix/tls_policy
 #smtp_tls_session_cache_timeout = 3600s
 smtp_tls_session_cache_database = 
 
