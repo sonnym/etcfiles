@@ -2,11 +2,5 @@
 type: package
 match_type: glob
 case_sensitive: on
-solvable_name: flash-player
-
-
-type: package
-match_type: glob
-case_sensitive: on
 solvable_name: xf86-video-nouveau
 
