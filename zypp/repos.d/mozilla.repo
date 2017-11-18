@@ -1,8 +1,0 @@
-[mozilla]
-name=mozilla
-enabled=1
-autorefresh=1
-baseurl=http://download.opensuse.org/repositories/mozilla/openSUSE_Tumbleweed
-path=/
-type=rpm-md
-keeppackages=0
