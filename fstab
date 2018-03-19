@@ -1,5 +1,5 @@
-UUID=4560e7ec-5101-4f07-b1d1-000eed9184f1  /          ext4  defaults  0  0
-UUID=14F9-5909                             /boot/efi  vfat  defaults  0  0
+UUID=eb54c70c-784b-458b-b5bb-1b91be55b789  /          ext4  acl,user_xattr  0  0
+UUID=0085-6455                             /boot/efi  vfat  defaults        0  0
 
 192.168.1.101:/mnt/storage /home/sonny/mnt/storage fuse.sshfs noauto,_netdev,users,idmap=user,reconnect 0 0
 UUID=0135-1B2C /home/sonny/mnt/book vfat noauto,users 0 0
