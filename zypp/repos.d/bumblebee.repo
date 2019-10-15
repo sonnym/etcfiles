@@ -1,7 +1,0 @@
-[bumblebee]
-name=bumblebee
-enabled=1
-autorefresh=1
-baseurl=http://download.opensuse.org/repositories/X11:/Bumblebee/openSUSE_Tumbleweed/
-type=rpm-md
-keeppackages=0

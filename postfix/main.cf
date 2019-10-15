@@ -745,10 +745,6 @@ smtp_sasl_auth_enable = no
 smtp_sasl_security_options = 
 smtp_sasl_password_maps = 
 smtpd_sasl_auth_enable = no
-# cyrus   : smtpd_sasl_type = cyrus,   smtpd_sasl_path = smtpd
-# dovecot : smtpd_sasl_type = dovecot, smtpd_sasl_path = private/auth
-# smtpd_sasl_path =
-# smtpd_sasl_type =
 ############################################################
 # TLS stuff
 ############################################################
