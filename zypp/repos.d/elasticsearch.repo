@@ -1,0 +1,5 @@
+[elasticsearch]
+enabled=1
+autorefresh=0
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
+type=rpm-md
