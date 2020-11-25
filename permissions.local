@@ -25,3 +25,4 @@
 # Format:
 # <file> <owner>:<group> <mode>
 #
+/boot/ root:root 700
