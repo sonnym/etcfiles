@@ -32,7 +32,7 @@ WANTED_GUI="auto"
 # inverted: black-white
 # highcontrast: lightgrey-black
 # braille: for visually impaired
-Y2NCURSES_COLOR_THEME="inverted"
+Y2NCURSES_COLOR_THEME=""
 
 ## Type: list(yes,no)
 ## Default: "no"

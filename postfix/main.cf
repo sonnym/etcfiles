@@ -257,7 +257,7 @@ unknown_local_recipient_reject_code = 550
 #
 # By default (mynetworks_style = subnet), Postfix "trusts" SMTP
 # clients in the same IP subnetworks as the local machine.
-# On Linux, this does works correctly only with interfaces specified
+# On Linux, this works correctly only with interfaces specified
 # with the "ifconfig" command.
 # 
 # Specify "mynetworks_style = class" when Postfix should "trust" SMTP
@@ -707,7 +707,7 @@ inet_protocols = all
 masquerade_classes = envelope_sender, header_sender, header_recipient
 masquerade_domains = 
 masquerade_exceptions = root
-mydestination = $myhostname, localhost.$mydomain
+mydestination = $myhostname, localhost.$mydomain, localhost
 myhostname = localhost
 mynetworks_style = subnet
 relayhost = 
@@ -745,6 +745,12 @@ smtp_sasl_auth_enable = no
 smtp_sasl_security_options = 
 smtp_sasl_password_maps = 
 smtpd_sasl_auth_enable = no
+# cyrus   : smtpd_sasl_type = cyrus
+#           smtpd_sasl_path = smtpd
+# dovecot : smtpd_sasl_type = dovecot
+#           smtpd_sasl_path = private/auth
+smtpd_sasl_type = cyrus
+smtpd_sasl_path = smtpd
 ############################################################
 # TLS stuff
 ############################################################
@@ -770,12 +776,13 @@ smtpd_tls_CApath =
 smtpd_tls_cert_file = 
 smtpd_tls_key_file = 
 smtpd_tls_ask_ccert = no
+smtpd_tls_exclude_ciphers = RC4
 smtpd_tls_received_header = no
 ############################################################
 # Start MySQL from postfixwiki.org
 ############################################################
-relay_domains = $mydestination, hash:/etc/postfix/relay
-virtual_alias_domains = hash:/etc/postfix/virtual
+relay_domains = $mydestination hash:/etc/postfix/relay 
+#virtual_alias_domains = 
 virtual_alias_maps = hash:/etc/postfix/virtual
 #virtual_uid_maps = static:303
 #virtual_gid_maps = static:303

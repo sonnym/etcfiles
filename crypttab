@@ -1,1 +1,1 @@
-cr_nvme-PM981_NVMe_Samsung_512GB__S3ZHNE0K801972-part2  UUID=65ebb392-dfb1-4d53-92bc-f4e1cdf13c41 /.root.key
+cr_root  UUID=66f4dcce-093d-4e31-aeba-bbbda8a05c1a /.root.key x-initrd.attach
