@@ -1,6 +1,4 @@
 [packman]
-name=packman
 enabled=1
-autorefresh=1
-baseurl=http://packman.inode.at/suse/openSUSE_Tumbleweed/
-type=rpm-md
+autorefresh=0
+baseurl=http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/
