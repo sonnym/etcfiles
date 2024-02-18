@@ -2,3 +2,5 @@
 enabled=1
 autorefresh=1
 baseurl=https://download.nvidia.com/opensuse/tumbleweed
+type=rpm-md
+keeppackages=0

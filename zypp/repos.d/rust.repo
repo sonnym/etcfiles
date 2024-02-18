@@ -3,3 +3,4 @@ enabled=1
 autorefresh=1
 baseurl=http://download.opensuse.org/repositories/devel:/languages:/rust/openSUSE_Tumbleweed
 type=rpm-md
+keeppackages=0
